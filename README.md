@@ -1,0 +1,1 @@
+NRIC validation in javascript
