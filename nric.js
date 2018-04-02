@@ -22,21 +22,24 @@ function main(){
 nric = document.getElementById('nric_value').value
 prefix = nric.slice(0, 1)
 suffix = nric.slice(-1)
+elem = document.getElementById('result')
 if(prefix != 'S' && prefix != 's'){
 	console.log('First char is not S')
+	elem.innerHTML = 'First char is not S'
 	return
 	}
 nric_digits = nric.slice(1, 8)
 checkdigit = compute(nric_digits)
 correct_suffix = lookup(checkdigit)
 valid_nric = prefix + nric_digits + correct_suffix
-elem = document.getElementById('result')
 if(valid_nric == nric){
 console.log('Input NRIC:(' + nric + ') is valid!')
-elem.innerHTML = 'Input NRIC:(' + nric + ') is valid!'
+elem.innerHTML = ''
+elem.append('Input NRIC:(' + nric + ') is valid!')
 } else {
 console.log('Input NRIC:(' + nric + ') is invalid!')
 console.log('Correct NRIC should be: ' + valid_nric)
+elem.innerHTML = ''
 elem.append('Input NRIC:(' + nric + ') is invalid!')
 elem.appendChild(document.createElement("br"))
 elem.append('Correct NRIC should be: ' + valid_nric)
