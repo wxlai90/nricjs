@@ -18,6 +18,19 @@ d = 10 - d
 return table[d]
 }
 
+function generate(){
+var nric = ''
+for(i=0;i<7;i++){
+	nric += Math.floor(Math.random() * 10)
+	}
+checkdigit = compute(nric)
+correct_suffix = lookup(checkdigit)
+valid_nric = 'S' + nric + correct_suffix
+elem = document.getElementById('result')
+elem.innerHTML = ''
+elem.append('Generated NRIC: ' + valid_nric)
+}
+
 function main(){
 nric = document.getElementById('nric_value').value
 prefix = nric.slice(0, 1)
@@ -33,14 +46,21 @@ checkdigit = compute(nric_digits)
 correct_suffix = lookup(checkdigit)
 valid_nric = prefix + nric_digits + correct_suffix
 if(valid_nric == nric){
-console.log('Input NRIC:(' + nric + ') is valid!')
 elem.innerHTML = ''
 elem.append('Input NRIC:(' + nric + ') is valid!')
+var tick = document.createElement("img")
+tick.src = 'res/tick.png'
+tick.width='25'
+tick.height='25'
+elem.appendChild(tick)
 } else {
-console.log('Input NRIC:(' + nric + ') is invalid!')
-console.log('Correct NRIC should be: ' + valid_nric)
 elem.innerHTML = ''
 elem.append('Input NRIC:(' + nric + ') is invalid!')
+var cross = document.createElement("img")
+cross.src = 'res/cross.png'
+cross.width='25'
+cross.height='25'
+elem.appendChild(cross)
 elem.appendChild(document.createElement("br"))
 elem.append('Correct NRIC should be: ' + valid_nric)
 }
