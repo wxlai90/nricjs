@@ -12,8 +12,14 @@ for(i=0;i<7;i++){
 return sum % 11
 }
 
-function lookup(d){
+function lookup(d, type){
+if (type === 'S'){
 table = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Z', 'J' ]
+	} else if (type === 'T'){
+table = [ 'H', 'I', 'Z', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
+	} else {
+return False
+	}
 d = 10 - d
 return table[d]
 }
@@ -24,8 +30,11 @@ for(i=0;i<7;i++){
 	nric += Math.floor(Math.random() * 10)
 	}
 checkdigit = compute(nric)
-correct_suffix = lookup(checkdigit)
-valid_nric = 'S' + nric + correct_suffix
+prefixes = [ 'S', 'T' ]
+random_index = Math.floor(Math.random() * 2)
+prefix = prefixes[random_index]
+correct_suffix = lookup(checkdigit, prefix)
+valid_nric = prefix + nric + correct_suffix
 elem = document.getElementById('result')
 elem.innerHTML = ''
 elem.append('Generated NRIC: ' + valid_nric)
@@ -36,14 +45,13 @@ nric = document.getElementById('nric_value').value
 prefix = nric.slice(0, 1)
 suffix = nric.slice(-1)
 elem = document.getElementById('result')
-if(prefix != 'S' && prefix != 's'){
-	console.log('First char is not S')
-	elem.innerHTML = 'First char is not S'
+if(prefix.toUpperCase() != 'S' && prefix.toUpperCase() != 'T'){
+	elem.innerHTML = 'First char has to be S or T!'
 	return
 	}
 nric_digits = nric.slice(1, 8)
 checkdigit = compute(nric_digits)
-correct_suffix = lookup(checkdigit)
+correct_suffix = lookup(checkdigit, prefix)
 valid_nric = prefix + nric_digits + correct_suffix
 if(valid_nric == nric){
 elem.innerHTML = ''
